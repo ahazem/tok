@@ -10,8 +10,11 @@ require 'rspec/rails'
 require 'ammeter/init'
 require 'factory_girl_rails'
 
+Dir[File.expand_path('../../spec/support/**/*.rb', __FILE__)].each { |f| require f }
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include Tok::GeneratorHelpers
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
 end

@@ -6,6 +6,9 @@
 /doc/
 /pkg/
 /spec/reports/
+/spec/dummy/db/
+/spec/dummy/Gemfile
+/spec/dummy/Gemfile.lock
 /tmp/
 *.bundle
 *.so

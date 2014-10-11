@@ -1,6 +1,5 @@
 describe Tok::Configuration do
   before :all do
-    User = Class.new 
     Account = Class.new
   end
 

@@ -9,7 +9,9 @@ require File.expand_path('../dummy/config/environment.rb', __FILE__)
 require 'rspec/rails'
 require 'ammeter/init'
 require 'factory_girl_rails'
+require 'rails-api'
 
+Dir[File.expand_path('../../app/**/**/*.rb', __FILE__)].each { |f| require f }
 Dir[File.expand_path('../../spec/support/**/*.rb', __FILE__)].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!

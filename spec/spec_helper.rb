@@ -12,6 +12,8 @@ require 'factory_girl_rails'
 
 Dir[File.expand_path('../../spec/support/**/*.rb', __FILE__)].each { |f| require f }
 
+ActiveRecord::Migration.maintain_test_schema!
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Tok::GeneratorHelpers

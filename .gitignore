@@ -6,7 +6,8 @@
 /doc/
 /pkg/
 /spec/reports/
-/spec/dummy/db/
+/spec/dummy/db/seeds.rb
+/spec/dummy/db/migrate/*.rb
 /spec/dummy/Gemfile
 /spec/dummy/Gemfile.lock
 /tmp/

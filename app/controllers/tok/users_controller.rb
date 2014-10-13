@@ -1,8 +1,8 @@
 module Tok
-  class UsersController < ApplicationController
+  class UsersController < BaseController
     # POST /signup
     def create
-      @resource = resource.new(resource_params)
+      @resource = resource_class.new(resource_params)
 
       if @resource.save
         render json: @resource, status: :created

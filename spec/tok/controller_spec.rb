@@ -1,10 +1,15 @@
 describe Tok::Controller do
-  subject { Tok::Controller }
+  subject { Tok::BaseController.new }
 
   before do
     Tok.configure do |config|
       config.resource = Account 
     end
+  end
+
+  describe ".resource" do
+    it { expect(subject).to respond_to :resource }
+    it { expect(subject.resource).to eq Tok.configuration.resource.to_s }
   end
 
   describe ".resource_name" do

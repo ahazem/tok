@@ -1,6 +1,7 @@
 describe Tok::Configuration do
   before :all do
-    Account = Class.new
+    class Account < ActiveRecord::Base; end
+    class User < ActiveRecord::Base; end
   end
 
   describe "#resource" do

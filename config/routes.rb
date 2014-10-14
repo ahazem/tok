@@ -1,3 +1,3 @@
-Tok::Engine.routes.draw do
-  post "signup", to: "users#create"
+Rails.application.routes.draw do
+  post "signup", to: "tok/users#create"
 end

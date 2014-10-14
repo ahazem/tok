@@ -1,6 +1,4 @@
 describe Tok::UsersController do
-  routes { Tok::Engine.routes }
-
   describe "#sign_up" do
     context "with valid parameters" do
       subject { attributes_for(:user) }

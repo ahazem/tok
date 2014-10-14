@@ -1,6 +1,7 @@
 require 'tok/engine'
 require 'tok/configuration'
 require 'tok/controller'
+require 'tok/authentication'
 require 'tok/version'
 
 module Tok

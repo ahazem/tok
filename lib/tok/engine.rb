@@ -16,7 +16,7 @@ module Tok
     private
 
     def user_model_exist?
-      File.exist?(File.expand_path('app/models/user.rb', Rails.root))
+      Rails.env.test? ? true : File.exist?(File.expand_path('app/models/user.rb', Rails.root)) 
     end
   end
 end

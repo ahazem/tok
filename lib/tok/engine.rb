@@ -13,6 +13,10 @@ module Tok
       end
     end
 
+    initializer :filter_params do |app|
+      app.config.filter_parameters += [:encrypted_password, :password]
+    end
+
     private
 
     def user_model_exist?

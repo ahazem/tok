@@ -8,6 +8,13 @@ module Tok
       include Callbacks
     end
 
+    module ClassMethods
+      def authenticate(params)
+        user = self.where(email: params[:email]).first
+        user if user && BCrypt::Password.new(user.encrypted_password) == params[:password] 
+      end
+    end
+
     module Callbacks
       extend ActiveSupport::Concern
 

@@ -5,7 +5,7 @@ describe Tok::UsersController do
     end
   end
 
-  describe "#sign_up" do
+  describe "#create" do
     context "with valid parameters" do
       subject { attributes_for(:user) }
 

@@ -22,6 +22,18 @@ module Tok
       request.headers["HTTP_AUTHORIZATION"] || params[:token]
     end
 
+    # Adopted from Devise, licensed under MIT.
+    # Copyrights 2009 - 2014 Plataformatec.
+    def secure_compare(a, b)
+      return false if a.blank? || b.blank? || a.bytesize != b.bytesize
+
+      l = a.unpack "C#{a.bytesize}"
+
+      res = 0
+      b.each_byte { |byte| res |= byte ^ l.shift }
+      res == 0
+    end
+
     def resource
       Tok.configuration.resource.to_s
     end

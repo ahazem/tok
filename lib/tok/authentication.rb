@@ -20,6 +20,8 @@ module Tok
 
       included do
         before_save :encrypt_password
+        before_save :ensure_authentication_token
+
         after_save :clear_password
       end
     end
@@ -27,8 +29,17 @@ module Tok
     private
 
     def encrypt_password
-      if password.present?
-        self.encrypted_password = encrypt(password)
+      self.encrypted_password = encrypt(password) if password.present?
+    end
+
+    def ensure_authentication_token
+      self.authentication_token = generate_authentication_token if authentication_token.blank?
+    end
+
+    def generate_authentication_token
+      loop do
+        random = SecureRandom.urlsafe_base64(nil, false)
+        break random unless self.class.exists?(authentication_token: random)
       end
     end
 

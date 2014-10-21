@@ -3,6 +3,7 @@ class Create<%= model_class.pluralize %> < ActiveRecord::Migration
     create_table :<%= model_class.tableize %> do |t|
       t.string :email, null: false
       t.string :encrypted_password, null: false
+      t.string :authentication_token
       
       t.timestamps
     end

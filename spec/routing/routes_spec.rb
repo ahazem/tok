@@ -9,5 +9,10 @@ describe 'Tok routes' do
       it { expect(post: 'login').to be_routable }
       it { expect(post: 'login').to route_to(controller: "tok/sessions", action: "create") }
     end
+
+    describe "/logout" do
+      it { expect(delete: '/logout').to be_routable }
+      it { expect(delete: '/logout').to route_to(controller: "tok/sessions", action: "destroy") }
+    end
   end
 end

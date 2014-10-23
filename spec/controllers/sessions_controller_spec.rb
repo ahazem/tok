@@ -10,9 +10,22 @@ describe Tok::SessionsController do
       subject { attributes_for(:user) } 
 
       before do
-        create(:user)
-
         post :create, {user: subject}, {"Accept" => "application/json", "Content-Type" => "application/json"}
+      end
+
+      it { expect(response).to be_success }
+    end
+  end
+
+  describe "#destroy" do
+    context "when logged in" do
+      let(:user_params) { attributes_for(:user) }
+
+      before do
+        @user = create(:user)
+        @user.class.authenticate(user_params)
+
+        delete :destroy, {}, {"Accept" => "application/json", "Content-Type" => "application/json"}
       end
 
       it { expect(response).to be_success }

@@ -9,6 +9,11 @@ module Tok
       end
     end
 
+    # DELETE /logout
+    def destroy
+
+    end
+
     private
 
     def resource_params

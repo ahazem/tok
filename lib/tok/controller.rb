@@ -17,6 +17,20 @@ module Tok
       resource_class.where(authentication_token: token).first
     end
 
+    def resource
+      Tok.configuration.resource.to_s
+    end
+
+    def resource_name
+      resource.downcase
+    end
+
+    def resource_class
+      resource.constantize
+    end
+
+    private
+
     def authorized?
       resource = resource_class.where(authentication_token: token).first
       resource && secure_compare(resource.authentication_token, params[:token])
@@ -36,18 +50,6 @@ module Tok
       res = 0
       b.each_byte { |byte| res |= byte ^ l.shift }
       res == 0
-    end
-
-    def resource
-      Tok.configuration.resource.to_s
-    end
-
-    def resource_name
-      resource.downcase
-    end
-
-    def resource_class
-      resource.constantize
     end
   end
 end

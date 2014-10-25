@@ -11,7 +11,7 @@ module Tok
     module ClassMethods
       def authenticate(params)
         user = self.where(email: params[:email]).first
-        user if user && BCrypt::Password.new(user.encrypted_password) == params[:password] 
+        user if user && BCrypt::Password.new(user.encrypted_password) == params[:password]
       end
     end
 
@@ -20,16 +20,23 @@ module Tok
 
       included do
         before_save :encrypt_password
-        before_save :ensure_authentication_token
-
-        after_save :clear_password
+        before_create :ensure_authentication_token
       end
+    end
+
+    def reset_authentication_token
+      self.authentication_token = generate_authentication_token
+      self.save
     end
 
     private
 
     def encrypt_password
       self.encrypted_password = encrypt(password) if password.present?
+    end
+
+    def encrypt(password)
+      BCrypt::Password.create(password, cost: Tok.configuration.bcrypt_cost)
     end
 
     def ensure_authentication_token
@@ -41,14 +48,6 @@ module Tok
         random = SecureRandom.urlsafe_base64(nil, false)
         break random unless self.class.exists?(authentication_token: random)
       end
-    end
-
-    def clear_password
-      self.password = nil
-    end
-
-    def encrypt(password)
-      BCrypt::Password.create(password, cost: Tok.configuration.bcrypt_cost)
     end
   end
 end

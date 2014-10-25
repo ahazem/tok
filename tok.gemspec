@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "factory_girl_rails", "~> 4.4"
   spec.add_development_dependency "pg", "~> 0.17"
   spec.add_development_dependency "ammeter", "~> 1.1.2"
+  spec.add_development_dependency "json_spec", "~> 1.1"
 end

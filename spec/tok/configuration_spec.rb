@@ -54,4 +54,58 @@ describe Tok::Configuration do
 
     it { expect(Tok.configuration.bcrypt_cost).to eq 20 }
   end
+
+  describe "#signup_route" do
+    before do
+      Tok.configure {}
+    end
+
+    it { expect(Tok::Configuration.new.signup_route).to eq "signup" }
+  end
+
+  describe "#signup_route=" do
+    before do
+      Tok.configure do |config|
+        config.signup_route = "register"
+      end
+    end
+
+    it { expect(Tok.configuration.signup_route).to eq "register" }
+  end
+
+  describe "#login_route" do
+    before do
+      Tok.configure {}
+    end
+
+    it { expect(Tok::Configuration.new.login_route).to eq "login" }
+  end
+
+  describe "#login_route=" do
+    before do
+      Tok.configure do |config|
+        config.login_route = "signin"
+      end
+    end
+
+    it { expect(Tok.configuration.login_route).to eq "signin" }
+  end
+
+  describe "#logout_route" do
+    before do
+      Tok.configure {}
+    end
+
+    it { expect(Tok::Configuration.new.logout_route).to eq "logout" }
+  end
+
+  describe "#logout_route=" do
+    before do
+      Tok.configure do |config|
+        config.logout_route = "signout"
+      end
+    end
+
+    it { expect(Tok.configuration.logout_route).to eq "signout" }
+  end
 end

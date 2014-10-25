@@ -2,7 +2,7 @@ module Tok
   module Controller 
     extend ActiveSupport::Concern
 
-    helpers = %w(authenticate! resource resource_name resource_class)
+    helpers = %w(authenticate! current_user resource resource_name resource_class)
 
     included do
       helper_method(*helpers) 
@@ -11,6 +11,10 @@ module Tok
 
     def authenticate!
       head :unauthorized unless authorized?
+    end
+
+    def current_user
+      resource_class.where(authentication_token: token).first
     end
 
     def authorized?

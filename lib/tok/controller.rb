@@ -10,7 +10,7 @@ module Tok
     end
 
     def authenticate!
-      head :unauthorized unless authorized?
+      authentication_required unless authorized?
     end
 
     def current_user
@@ -30,6 +30,11 @@ module Tok
     end
 
     private
+
+    def authentication_required
+      self.headers["WWW-Authenticate"] = 'Token realm="Application"'
+      render json: {error: "Access denied."}, status: :unauthorized
+    end
 
     def authorized?
       resource = resource_class.where(authentication_token: token).first

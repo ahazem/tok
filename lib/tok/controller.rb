@@ -33,7 +33,7 @@ module Tok
 
     def authorized?
       resource = resource_class.where(authentication_token: token).first
-      resource && secure_compare(resource.authentication_token, params[:token])
+      resource && secure_compare(resource.authentication_token, token)
     end
 
     def token

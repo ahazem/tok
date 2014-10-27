@@ -17,18 +17,16 @@ describe 'Tok routes' do
   end
 
   context "with different route for /signup" do
-    describe "/signup" do
-      before do
-        Tok.configure do |config|
-          config.signup_route = "register"
-        end
-
-        Rails.application.routes_reloader.reload!
+    before do
+      Tok.configure do |config|
+        config.signup_route = "register"
       end
 
-      it { expect(post: 'register').to be_routable }
-      it { expect(post: 'register').to route_to(controller: "tok/users", action: "create") }
+      Rails.application.routes_reloader.reload!
     end
+
+    it { expect(post: 'register').to be_routable }
+    it { expect(post: 'register').to route_to(controller: "tok/users", action: "create") }
   end
 
   context "with different route for /login" do

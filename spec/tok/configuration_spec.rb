@@ -4,108 +4,100 @@ describe Tok::Configuration do
     class User < ActiveRecord::Base; end
   end
 
-  describe "#model" do
-    it "has a default value User" do
-      expect(Tok::Configuration.new.model).to eq ::User
+  describe ".model" do
+    context "by default" do
+      it { expect(Tok::Configuration.new.model).to eq ::User }
+    end
+
+    context "when specified" do
+      before do
+        Tok.configure do |config|
+          config.model = Account
+        end
+      end
+      
+      it { expect(Tok.configuration.model).to eq Account }
     end
   end
 
-  describe "#model=" do
-    before do
-      Tok.configure do |config|
-        config.model = Account
+  describe ".bcrypt_cost" do
+    context "by default" do
+      subject { Tok::Configuration.new.bcrypt_cost }
+
+      context "while in test environment" do
+        it { expect(subject).to eq BCrypt::Engine::MIN_COST }
+      end
+
+      context "while in other environments" do
+        before do
+          # Stub Rails.env
+          allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
+
+          Tok.configure {} 
+        end
+
+        it { expect(subject).to eq BCrypt::Engine::DEFAULT_COST }
       end
     end
 
-    it { expect(Tok.configuration.model).to eq Account }
-  end
-
-  describe "#bcrypt_cost" do
-    subject { Tok::Configuration.new.bcrypt_cost }
-
-    context "while in test environment" do
+    context "when specified" do
       before do
-        Tok.configure {}
-      end
-
-      it { expect(subject).to eq BCrypt::Engine::MIN_COST }
-    end
-
-    context "while in other environments" do
-      before do
-        # Stub Rails.env
         allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
 
-        Tok.configure {} 
+        Tok.configure do |config|
+          config.bcrypt_cost = 20
+        end
       end
 
-      it { expect(subject).to eq BCrypt::Engine::DEFAULT_COST }
+      it { expect(Tok.configuration.bcrypt_cost).to eq 20 }
     end
   end
 
-  describe "#bcrypt_cost=" do
-    before do
-      allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
+  describe ".signup_route" do
+    context "by default" do
+      it { expect(Tok::Configuration.new.signup_route).to eq "signup" }
+    end
 
-      Tok.configure do |config|
-        config.bcrypt_cost = 20
+    context "when specified" do
+      before do
+        Tok.configure do |config|
+          config.signup_route = "register"
+        end
       end
-    end
 
-    it { expect(Tok.configuration.bcrypt_cost).to eq 20 }
+      it { expect(Tok.configuration.signup_route).to eq "register" }
+    end
   end
 
-  describe "#signup_route" do
-    before do
-      Tok.configure {}
+  describe ".login_route" do
+    context "by default" do
+      it { expect(Tok::Configuration.new.login_route).to eq "login" }
     end
 
-    it { expect(Tok::Configuration.new.signup_route).to eq "signup" }
-  end
-
-  describe "#signup_route=" do
-    before do
-      Tok.configure do |config|
-        config.signup_route = "register"
+    context "when specified" do
+      before do
+        Tok.configure do |config|
+          config.login_route = "signin"
+        end
       end
-    end
 
-    it { expect(Tok.configuration.signup_route).to eq "register" }
+      it { expect(Tok.configuration.login_route).to eq "signin" }
+    end
   end
 
-  describe "#login_route" do
-    before do
-      Tok.configure {}
+  describe ".logout_route" do
+    context "by default" do
+      it { expect(Tok::Configuration.new.logout_route).to eq "logout" }
     end
 
-    it { expect(Tok::Configuration.new.login_route).to eq "login" }
-  end
-
-  describe "#login_route=" do
-    before do
-      Tok.configure do |config|
-        config.login_route = "signin"
+    context "when specified" do
+      before do
+        Tok.configure do |config|
+          config.logout_route = "signout"
+        end
       end
+
+      it { expect(Tok.configuration.logout_route).to eq "signout" }
     end
-
-    it { expect(Tok.configuration.login_route).to eq "signin" }
-  end
-
-  describe "#logout_route" do
-    before do
-      Tok.configure {}
-    end
-
-    it { expect(Tok::Configuration.new.logout_route).to eq "logout" }
-  end
-
-  describe "#logout_route=" do
-    before do
-      Tok.configure do |config|
-        config.logout_route = "signout"
-      end
-    end
-
-    it { expect(Tok.configuration.logout_route).to eq "signout" }
   end
 end

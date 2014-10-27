@@ -14,7 +14,7 @@ module Tok
     end
 
     initializer :filter_params do |app|
-      app.config.filter_parameters += [:encrypted_password, :password]
+      app.config.filter_parameters += [:encrypted_password, :password, :authentication_token, :token]
     end
 
     private

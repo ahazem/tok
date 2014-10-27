@@ -6,6 +6,7 @@ describe Tok::Generators::InstallGenerator do
 
   before do
     prepare_destination
+    generate_tmp_files
     run_generator
   end
 
@@ -14,6 +15,13 @@ describe Tok::Generators::InstallGenerator do
 
     it { expect(subject).to exist }
     it { expect(subject).to contain(/Tok.configure do \|config\|/) }
+  end
+
+  describe ".include_tok_into_application_controller" do
+    subject { file('app/controllers/application_controller.rb') }
+
+    it { expect(subject).to exist }
+    it { expect(subject).to contain(/include Tok::Controller/) }
   end
 
   after do

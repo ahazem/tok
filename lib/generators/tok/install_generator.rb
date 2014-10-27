@@ -14,6 +14,10 @@ module Tok
         template "tok.rb", "config/initializers/tok.rb"
       end
 
+      def include_tok_into_application_controller
+        inject_into_class "app/controllers/application_controller.rb", ApplicationController, "  include Tok::Controller\n"
+      end
+
       def create_tok_migration
         if options[:model]
           migration_template "migration/create_model.rb", "db/migrate/create_#{options[:model].downcase.pluralize}.rb"

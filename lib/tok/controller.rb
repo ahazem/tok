@@ -2,7 +2,7 @@ module Tok
   module Controller 
     extend ActiveSupport::Concern
 
-    helpers = %w(authenticate! current_user resource resource_name resource_class)
+    helpers = %w(authenticate! current_user model model_name model_class)
 
     included do
       helper_method(*helpers) 
@@ -14,19 +14,19 @@ module Tok
     end
 
     def current_user
-      resource_class.where(authentication_token: token).first
+      model_class.where(authentication_token: token).first
     end
 
-    def resource
-      Tok.configuration.resource.to_s
+    def model 
+      Tok.configuration.model.to_s
     end
 
-    def resource_name
-      resource.downcase
+    def model_name 
+      model.downcase
     end
 
-    def resource_class
-      resource.constantize
+    def model_class 
+      model.constantize
     end
 
     private
@@ -37,8 +37,8 @@ module Tok
     end
 
     def authorized?
-      resource = resource_class.where(authentication_token: token).first
-      resource && secure_compare(resource.authentication_token, token)
+      model = model_class.where(authentication_token: token).first
+      model && secure_compare(model.authentication_token, token)
     end
 
     def token

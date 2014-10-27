@@ -10,8 +10,8 @@ module Tok
 
     module ClassMethods
       def authenticate(params)
-        user = self.where(email: params[:email]).first
-        user if user && BCrypt::Password.new(user.encrypted_password) == params[:password]
+        model = self.where(email: params[:email]).first
+        model if model && BCrypt::Password.new(model.encrypted_password) == params[:password]
       end
     end
 

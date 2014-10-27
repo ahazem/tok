@@ -2,14 +2,14 @@ require 'bcrypt'
 
 module Tok
   class Configuration
-    attr_accessor :resource,
+    attr_accessor :model,
                   :bcrypt_cost,
                   :signup_route,
                   :login_route,
                   :logout_route
 
-    def resource
-      @resource || ::User
+    def model 
+      @model || ::User
     end
 
     def bcrypt_cost

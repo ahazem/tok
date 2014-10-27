@@ -26,7 +26,7 @@ module Tok
 
       private
 
-      def model_class
+      def model
         options[:model].classify
       end
     end

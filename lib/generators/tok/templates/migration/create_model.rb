@@ -1,6 +1,6 @@
-class Create<%= model_class.pluralize %> < ActiveRecord::Migration
+class Create<%= model.pluralize %> < ActiveRecord::Migration
   def change
-    create_table :<%= model_class.tableize %> do |t|
+    create_table :<%= model.tableize %> do |t|
       t.string :email, null: false
       t.string :encrypted_password, null: false
       t.string :authentication_token
@@ -8,6 +8,6 @@ class Create<%= model_class.pluralize %> < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :<%= model_class.tableize %>, :email, unique: true
+    add_index :<%= model.tableize %>, :email, unique: true
   end
 end

@@ -3,22 +3,22 @@ describe Tok::Controller do
 
   before do
     Tok.configure do |config|
-      config.resource = Account 
+      config.model = Account 
     end
   end
 
-  describe ".resource" do
-    it { expect(subject).to respond_to :resource }
-    it { expect(subject.resource).to eq Tok.configuration.resource.to_s }
+  describe ".model" do
+    it { expect(subject).to respond_to :model }
+    it { expect(subject.model).to eq Tok.configuration.model.to_s }
   end
 
-  describe ".resource_name" do
-    it { expect(subject).to respond_to :resource_name } 
-    it { expect(subject.resource_name).to eq Tok.configuration.resource.to_s.downcase }
+  describe ".model_name" do
+    it { expect(subject).to respond_to :model_name } 
+    it { expect(subject.model_name).to eq Tok.configuration.model.to_s.downcase }
   end
 
-  describe ".resource_class" do
-    it { expect(subject).to respond_to :resource_class }
-    it { expect(subject.resource_class).to eq Tok.configuration.resource.to_s.constantize }
+  describe ".model_class" do
+    it { expect(subject).to respond_to :model_class }
+    it { expect(subject.model_class).to eq Tok.configuration.model.to_s.constantize }
   end
 end

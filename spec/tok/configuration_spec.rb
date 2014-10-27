@@ -4,20 +4,20 @@ describe Tok::Configuration do
     class User < ActiveRecord::Base; end
   end
 
-  describe "#resource" do
+  describe "#model" do
     it "has a default value User" do
-      expect(Tok::Configuration.new.resource).to eq ::User
+      expect(Tok::Configuration.new.model).to eq ::User
     end
   end
 
-  describe "#resource=" do
+  describe "#model=" do
     before do
       Tok.configure do |config|
-        config.resource = Account
+        config.model = Account
       end
     end
 
-    it { expect(Tok.configuration.resource).to eq Account }
+    it { expect(Tok.configuration.model).to eq Account }
   end
 
   describe "#bcrypt_cost" do

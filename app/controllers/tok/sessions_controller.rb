@@ -2,10 +2,10 @@ module Tok
   class SessionsController < BaseController
     # POST /login
     def create
-      @user = resource_class.authenticate(resource_params)
+      @model = model_class.authenticate(model_params)
 
-      if @user
-        render json: @user, status: :created
+      if @model
+        render json: @model, status: :created
       else
         render json: {"error" => "Invalid email or password!"}.to_json, status: :unprocessable_entity 
       end

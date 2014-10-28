@@ -18,6 +18,15 @@ module Tok
         inject_into_class "app/controllers/application_controller.rb", ApplicationController, "  include Tok::Controller\n"
       end
 
+      def create_or_include_tok_in_model
+        if File.exists?("app/models/#{model_file}")
+          inject_into_file "app/models/#{model_file}", "  include Tok::Authentication\n",
+                    after: "class #{model_name.classify} < ActiveRecord::Base"
+        else
+          template "model.rb", "app/models/#{model_file}"
+        end
+      end
+
       def create_tok_migration
         if options[:model]
           migration_template "migration/create_model.rb", "db/migrate/create_#{options[:model].downcase.pluralize}.rb"
@@ -32,6 +41,14 @@ module Tok
 
       def model
         options[:model].classify
+      end
+
+      def model_name
+        options[:model] || "user"
+      end
+
+      def model_file
+        "#{model_name.downcase}.rb"
       end
     end
   end

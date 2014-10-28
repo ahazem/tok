@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Tok do
   after { reset_configuration }
 
-  describe '#configure' do
+  describe '.configure' do
     context 'when a model is specified' do
       before do
         Person = Class.new
@@ -24,9 +24,5 @@ describe Tok do
 
       it { expect(Tok.configuration.model).to eq User }
     end
-  end
-
-  it 'has a version number' do
-    expect(Tok::VERSION).not_to be nil
   end
 end

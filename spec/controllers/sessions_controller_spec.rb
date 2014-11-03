@@ -17,7 +17,7 @@ describe Tok::SessionsController do
 
       it { expect(response).to be_success }
       it { expect(response).to have_http_status :created }
-      it { expect(response.body).to eq @user.to_json } 
+      it { expect(response.body).to eq ({token: @user.authentication_token}.to_json) } 
     end
 
     context "with invalid credentials" do

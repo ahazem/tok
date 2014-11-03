@@ -5,7 +5,7 @@ module Tok
       @model = model_class.authenticate(model_params)
 
       if @model
-        render json: @model, status: :created
+        render json: {token: @model.authentication_token}.to_json, status: :created
       else
         render json: {"error" => "Invalid email or password!"}.to_json, status: :unprocessable_entity 
       end

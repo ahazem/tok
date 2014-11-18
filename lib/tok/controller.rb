@@ -42,7 +42,11 @@ module Tok
     end
 
     def token
-      request.headers["HTTP_AUTHORIZATION"] || params[:token]
+      token_header || params[:token]
+    end
+
+    def token_header
+      request.headers["HTTP_AUTHORIZATION"].tr('"', '').split('=')[1]
     end
 
     # Adopted from Devise, licensed under MIT.

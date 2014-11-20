@@ -46,7 +46,7 @@ module Tok
     end
 
     def token_header
-      request.headers["HTTP_AUTHORIZATION"].tr('"', '').split('=')[1]
+      request.headers["HTTP_AUTHORIZATION"].tr('"', '').split('=')[1] if request.headers["HTTP_AUTHORIZATION"]
     end
 
     # Adopted from Devise, licensed under MIT.

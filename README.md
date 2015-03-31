@@ -27,7 +27,7 @@ The generator by default does the following:
 - Creates a number of default routes `signup`, `login`, and `logout`
 - Creates an initializer at `config/initializers/tok.rb` to allow further configuration
 
-A custom model can be specified (whether existing or to be created) by passing `--model` (or just `-m`) as an option to the generator:
+A custom model can be specified by passing `--model` (or just `-m`) as an option to the generator:
 
     $ rails generate tok:install -m Account
     $ rails generate tok:install --model=Account

@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["ahazemm@gmail.com"]
   spec.summary       = %q{No-frills token-based authentication for modern Rails applications.}
   spec.description   = %q{The token-based authentication library for the ambitious.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/ahazem/tok"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -28,5 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-rails", "~> 3.1"
   spec.add_development_dependency "factory_girl_rails", "~> 4.4"
   spec.add_development_dependency "pg", "~> 0.17"
-  spec.add_development_dependency "ammeter", "~> 1.1.2"
+  spec.add_development_dependency "ammeter", "~> 1.1"
 end
